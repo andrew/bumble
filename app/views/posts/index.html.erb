@@ -1,0 +1,10 @@
+<% if logged_in? %>
+<p><%= link_to 'New post', new_post_path %></p>
+<% end %>
+
+<% if @posts.empty? %>
+    <p>No Posts!</p>
+<% else %>
+    <%= render :partial => @posts %>
+    <%= will_paginate @posts, :page_links => false %>
+<% end %>

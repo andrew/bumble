@@ -1,0 +1,18 @@
+<%= render :partial => @post %>
+
+<%= "<em>This post is private</em>" unless @post.publicly_viewable? %>
+
+<%= @post.published_at.to_s %>
+
+<p><%= link_to "Edit", edit_post_path(@post) %> or <%= link_to "Delete", post_path(@post), :method => :delete %></p>
+
+<% unless @post.comments.blank? %>
+<h3>Comments</h3>
+<%= render :partial => @post.comments %>
+<% end %>
+
+<h3>New comment</h3>
+<% form_for([@post, Comment.new], :url => post_comments_path(@post)) do |f| %>
+    <%= render :partial => 'comments/form', :locals => {:f => f} %>
+    <p><%= f.submit "Create" %></p>
+<% end %>

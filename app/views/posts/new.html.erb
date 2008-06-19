@@ -1,0 +1,12 @@
+<% for post_type in Post::TYPES %>
+    <div id="<%= post_type.downcase %>">
+        <h2>New <%= post_type %></h2>
+        <% form_for(@post, :url => posts_path) do |f| %>
+            <%= f.error_messages %> 
+            <%= render :partial => "#{post_type.downcase.pluralize}/form", :locals => {:f => f} %>
+            <%= render :partial => 'posts/form', :locals => {:f => f} %>
+            <%= f.hidden_field :type, :value => post_type %>
+            <p><%= f.submit "Create" %> or <%= link_to 'Back', root_path %></p>
+        <% end %>
+    </div>
+<% end %>

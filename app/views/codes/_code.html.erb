@@ -1,0 +1,7 @@
+<div class='code post'>
+    <% unless code.title.blank? %>
+        <h2><%= code.title %></h2>
+    <% end %>
+    <pre><%= h code.description %></pre>
+    <%= link_to '*', post_path(code) %>
+</div>

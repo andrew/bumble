@@ -1,0 +1,7 @@
+<h2>Editing post</h2>
+
+<% form_for(:post, @post, :url => post_path(@post), :html => {:method => :put}) do |f| %>
+    <%= render :partial => "#{@post.type.to_s.downcase.pluralize}/form", :locals => {:f => f} %>
+    <%= render :partial => 'posts/form', :locals => {:f => f} %>
+    <p><%= f.submit "Update" %> or <%= link_to 'Show', post_path(@post) %></p>
+<% end %>
