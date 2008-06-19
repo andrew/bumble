@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   resources_controller_for :users
   
-  before_filter :login_required # only current users can make new users
+  before_filter :login_required, :except => [:new, :create, :activate] # only current users can make new users
 
   def activate
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
