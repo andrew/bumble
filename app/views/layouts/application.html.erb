@@ -16,19 +16,19 @@
 </head>
 <body>
 
-<h1><%= link_to "Teabass", root_path %></h1>
+    <h1><%= link_to "Teabass", root_path %></h1>
 
-<p><% for type in Post::TYPES %>
-    <%= link_to type, post_class_path(type.downcase) %>
-<% end %></p>
+    <p><% for type in Post::TYPES %>
+        <%= link_to type, post_class_path(type.downcase) %>
+    <% end %></p>
 
-<% if logged_in? %>
-    <p><%= link_to "Logout", logout_path %></p>
-<% end %>
+    <% if logged_in? %>
+        <p><%= link_to "Logout", logout_path %></p>
+    <% end %>
 
-<p style="color: green"><%= flash[:notice] %></p>
+    <p style="color: green"><%= flash[:notice] %></p>
 
-<%= yield  %>
+    <%= yield  %>
 
 </body>
 </html>
