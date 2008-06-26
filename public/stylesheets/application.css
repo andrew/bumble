@@ -1,0 +1,29 @@
+body {margin:0; padding:0;}
+
+pre {background-color: #eee;padding: 10px;font-size: 11px;}
+blockquote{font-style: italic;}
+
+a { color: #000; }
+a:visited { color: #666; }
+a:hover { color: #fff; background-color:#000; }
+
+.fieldWithErrors {padding: 2px;background-color: red;display: table;}
+#errorExplanation {width: 400px;border: 2px solid red;padding: 7px;padding-bottom: 12px;margin-bottom: 20px;background-color: #f0f0f0;}
+#errorExplanation h2 {text-align: left;font-weight: bold;padding: 5px 5px 5px 15px;font-size: 12px;margin: -7px;background-color: #c00;color: #fff;}
+#errorExplanation p {color: #333;margin-bottom: 0;padding: 5px;}
+#errorExplanation ul li {font-size: 12px;list-style: square;}
+
+.pagination .disabled{display:none;}
+.ui-tabs-hide{display:none;}
+
+#header{position:absolute;}
+
+#main{width:600px; background:#fff; color:#000; margin:0 auto;}
+.post{margin:10px; padding:10px; border-bottom:1px solid #eee;}
+
+#new-post-tabs ul{margin:0; padding:0;}
+#new-post-tabs li{float:left; list-style:none;}
+#new-post-tabs a{display:block; padding:5px; text-decoration:none;}
+#new-post-tabs .ui-tabs-selected a{background:#eee;}
+#new-post-tabs div{clear:both; background:#eee; padding:10px;}
+#new-post-tabs textarea, #new-post-tabs input[type='text']{width:100%; margin:0;}

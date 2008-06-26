@@ -1,5 +1,24 @@
 <% if logged_in? %>
-<p><%= link_to 'New post', new_post_path %></p>
+<noscript><p><%= link_to 'New post', new_post_path %></p></noscript>
+<div id='new-post-tabs'>
+    <ul>
+    <% for type in Post::TYPES %>
+        <li><%= link_to type, "#new-#{type.downcase}-form" %></li>
+    <% end %>
+    </ul>
+    
+    <% for post_type in Post::TYPES %>
+        <div id="new-<%= post_type.downcase %>-form">
+            <% form_for(Post.new, :url => posts_path) do |f| %>
+                <%= f.error_messages %> 
+                <%= render :partial => "#{post_type.downcase.pluralize}/form", :locals => {:f => f} %>
+                <%= render :partial => 'posts/form', :locals => {:f => f} %>
+                <%= f.hidden_field :type, :value => post_type %>
+                <p><%= f.submit "Post" %></p>
+            <% end %>
+        </div>
+    <% end %>
+</div>
 <% end %>
 
 <% if @posts.empty? %>
