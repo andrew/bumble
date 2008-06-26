@@ -1,7 +1,7 @@
 body {margin:0; padding:0;}
 
 pre {background-color: #eee;padding: 10px;font-size: 11px;}
-blockquote{font-style: italic;}
+blockquote{font-style: italic; font-family:serif;}
 
 a { color: #000; }
 a:visited { color: #666; }

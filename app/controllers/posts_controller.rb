@@ -4,6 +4,25 @@ class PostsController < ApplicationController
   
   before_filter :login_required, :except => [:index, :show]
 
+  response_for :create do |format|
+    if resource_saved?
+      format.html do
+        redirect_to post_path(resource.post), :status => :moved_permanently
+      end
+      format.js do
+        @posts = find_resources
+        render :partial => 'posts'
+      end
+    else
+      format.html do
+        render :action => "new"
+      end
+      format.js do
+        render :text => "some error message"
+      end
+    end
+  end
+
   private
   
   def find_resources

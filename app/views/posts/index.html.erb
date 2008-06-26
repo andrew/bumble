@@ -21,9 +21,6 @@
 </div>
 <% end %>
 
-<% if @posts.empty? %>
-    <p>No Posts!</p>
-<% else %>
-    <%= render :partial => @posts %>
-    <%= will_paginate @posts, :page_links => false %>
-<% end %>
+<div id='posts'>
+    <%= render :partial => 'posts' %>
+</div>
