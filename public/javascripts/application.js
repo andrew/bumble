@@ -16,7 +16,7 @@ $(document).ready(function(){
 
   // js form validations
   // TODO refactor this into one method
-  $("#new_blog_form").validate({
+  $("#blog_form").validate({
 
      submitHandler: function(form) {
      	$(form).ajaxSubmit( {
@@ -26,7 +26,7 @@ $(document).ready(function(){
     }
   });
 
-  $("#new_video_form").validate({
+  $("#video_form").validate({
      submitHandler: function(form) {
      	$(form).ajaxSubmit( {
            target: '#posts',
@@ -35,7 +35,7 @@ $(document).ready(function(){
     }
   });
 
-  $("#new_quote_form").validate({
+  $("#quote_form").validate({
      submitHandler: function(form) {
      	$(form).ajaxSubmit( {
            target: '#posts',
@@ -44,7 +44,7 @@ $(document).ready(function(){
      }
   });
 
-  $("#new_image_form").validate({
+  $("#image_form").validate({
      submitHandler: function(form) {
      	$(form).ajaxSubmit( {
            target: '#posts',
@@ -53,7 +53,7 @@ $(document).ready(function(){
      }
   });
 
-  $("#new_link_form").validate({
+  $("#link_form").validate({
      submitHandler: function(form) {
      	$(form).ajaxSubmit( {
            target: '#posts',
@@ -62,7 +62,7 @@ $(document).ready(function(){
      }
   });
 
-  $("#new_code_form").validate({
+  $("#code_form").validate({
      submitHandler: function(form) {
      	$(form).ajaxSubmit( {
            target: '#posts',
