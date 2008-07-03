@@ -20,10 +20,13 @@ h2{margin-top:0;}
 
 #main{width:600px; background:#fff; color:#000; margin:30px auto; padding:10px 20px;}
 .post{padding:10px 0; border-bottom:1px solid #eee;}
+.post img{max-width:100%;}
 
 #new-post-tabs ul{margin:0; padding:0;}
 #new-post-tabs li{float:left; list-style:none;}
 #new-post-tabs a{display:block; padding:5px; text-decoration:none;}
 #new-post-tabs .ui-tabs-selected a{background:#eee;}
 #new-post-tabs div{clear:both; background:#eee; padding:10px;}
-#new-post-tabs textarea, #new-post-tabs input[type='text']{width:100%; margin:0;}
+#new-post-tabs textarea, #new-post-tabs input[type='text']{width:100%; margin:0; clear:both;}
+
+label.error{float:right; color:red;}

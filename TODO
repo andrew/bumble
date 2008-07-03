@@ -1,5 +1,4 @@
 Design
-ajax posting
 ajax comments
 
 syntax highlighting
@@ -10,6 +9,7 @@ caching
 pages
 admin
 
+microformats
 richtext editor
 tags
 sass

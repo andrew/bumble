@@ -9,7 +9,7 @@
     
     <% for post_type in Post::TYPES %>
         <div id="new-<%= post_type.downcase %>-form">
-            <% form_for(Post.new, :url => posts_path) do |f| %>
+            <% form_for(Post.new, :url => posts_path, :html => {:id => "new_#{post_type.downcase}_form"}) do |f| %>
                 <%= f.error_messages %> 
                 <%= render :partial => "#{post_type.downcase.pluralize}/form", :locals => {:f => f} %>
                 <%= render :partial => 'posts/form', :locals => {:f => f} %>

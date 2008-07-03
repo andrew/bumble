@@ -18,6 +18,7 @@ class PostsController < ApplicationController
         render :action => "new"
       end
       format.js do
+        # if the jquery validation is working, this should never happen
         render :text => "some error message"
       end
     end
