@@ -19,9 +19,9 @@
         </ul>
         <% if logged_in? %><p><%= link_to "Logout", logout_path %></p><% end %>
     </div>
-
+    <p style="color: green"><%= flash[:notice] %></p>
     <div id='main'>    
-        <p style="color: green"><%= flash[:notice] %></p>
+        
         <%= yield  %>
     </div>
     
