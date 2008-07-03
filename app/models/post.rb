@@ -11,6 +11,7 @@ class Post < ActiveRecord::Base
   validates_inclusion_of :type, :in => TYPES
     
   def to_param
+    # TODO needs more love
     title.blank? ? "#{id}" : "#{permalink}"
   end
   
