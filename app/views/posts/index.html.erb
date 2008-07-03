@@ -3,7 +3,7 @@
 <div id='new-post-tabs'>
     <ul>
     <% for type in Post::TYPES %>
-        <li><%= link_to type, "#new-#{type.downcase}-form" %></li>
+        <li <%= "class='ui-tabs-selected'" if type.downcase == params[:klass] %>><%= link_to type, "#new-#{type.downcase}-form" %></li>
     <% end %>
     </ul>
     
