@@ -30,3 +30,10 @@ h2{margin-top:0;}
 #new-post-tabs textarea, #new-post-tabs input[type='text']{width:100%; margin:0; clear:both;}
 
 label.error{float:right; color:red;}
+
+#type_list{margin:0; padding:0;}
+#type_list li{float:right; list-style:none;}
+#title{float:left; margin:0;}
+#title a{color:#222; font-size:1.5em; text-decoration:none;}
+
+.clear{clear:both;}

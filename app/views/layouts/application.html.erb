@@ -11,17 +11,18 @@
 <body>
             
     <div id='header'>
-        <h1><%= link_to "Teabass", root_path %></h1>
-        <ul>
+        <% if logged_in? %><p><%= link_to "Logout", logout_path %></p><% end %>
+        <p style="color: green"><%= flash[:notice] %></p>
+    </div>
+    
+    <div id='main'>    
+        <h1 id='title'><%= link_to "Teabass", root_path %></h1>
+        <ul id='type_list'>
         <% for type in Post::TYPES %>
-            <li><%= link_to type, post_class_path(type.downcase) %></li>
+            <li><%= link_to image_tag("#{type}.png"), post_class_path(type.downcase) %></li>
         <% end %>
         </ul>
-        <% if logged_in? %><p><%= link_to "Logout", logout_path %></p><% end %>
-    </div>
-    <p style="color: green"><%= flash[:notice] %></p>
-    <div id='main'>    
-        
+        <div class='clear'></div>
         <%= yield  %>
     </div>
     
