@@ -18,8 +18,8 @@ h2{margin-top:0;}
 
 #header{position:absolute;}
 
-#main{width:600px; background:#fff; color:#000; margin:30px auto; padding:10px 20px;}
-.post{padding:10px 0; border-bottom:1px solid #eee;}
+#main{width:660px; background:#fff; color:#000; margin:30px auto; padding:10px 20px;}
+.post{padding:10px 0 20px 0; }
 .post img{max-width:100%;}
 
 #new-post-tabs ul{margin:0; padding:0;}
@@ -33,7 +33,18 @@ label.error{float:right; color:red;}
 
 #type_list{margin:0; padding:0;}
 #type_list li{float:right; list-style:none;}
-#title{float:left; margin:0;}
-#title a{color:#222; font-size:1.5em; text-decoration:none;}
+#title{float:left; margin:0; font-size:2.6em; color:#ccc;}
+#title a{color:#222; text-decoration:none; padding:0 2px;}
 
 .clear{clear:both;}
+
+.show-extra-fields{}
+.show-extra-fields.selected{background:red;}
+.extra-fields p{margin-top:0;}
+.form_submit{margin:0;}
+
+.code h2{margin-bottom:0;}
+.code .via{font-size:0.75em; margin:0; color:#aaa;}
+.code .via a{color:#888;}
+
+#footer{font-size:0.8em; color:#222;}
