@@ -1,74 +1,31 @@
 $(document).ready(function(){
   
   // tabs for new post form
-  $("#new-post-tabs > ul").tabs(
-    // TODO clear validations on tab switch
-    );
-  
+  $("#new-post-tabs > ul").tabs();
+    
+  // remove validations on tab switch
+  $('.ui-tabs-nav').bind('tabsselect', function(event, ui) {
+    $("label.error").each(function(){$(this).remove();});
+  });
   
   // toggle extra fields display
   $(".extra-fields").hide();
   $(".show-extra-fields").click(function(){
+    $(this).toggleClass('selected')
     $(".extra-fields").toggle();
     return false;
   });
 
-
-  // js form validations
-  // TODO refactor this into one method
-  $("#blog_form").validate({
-
-     submitHandler: function(form) {
-     	$(form).ajaxSubmit( {
-           target: '#posts',
-           clearForm: true
-      });
-    }
-  });
-
-  $("#video_form").validate({
-     submitHandler: function(form) {
-     	$(form).ajaxSubmit( {
-           target: '#posts',
-           clearForm: true
-      });
-    }
-  });
-
-  $("#quote_form").validate({
-     submitHandler: function(form) {
-     	$(form).ajaxSubmit( {
-           target: '#posts',
-           clearForm: true
-       });
-     }
-  });
-
-  $("#image_form").validate({
-     submitHandler: function(form) {
-     	$(form).ajaxSubmit( {
-           target: '#posts',
-           clearForm: true
-       });
-     }
-  });
-
-  $("#link_form").validate({
-     submitHandler: function(form) {
-     	$(form).ajaxSubmit( {
-           target: '#posts',
-           clearForm: true
-       });
-     }
-  });
-
-  $("#code_form").validate({
-     submitHandler: function(form) {
-     	$(form).ajaxSubmit( {
-           target: '#posts',
-           clearForm: true
-       });
-     }
+  // setup validation and ajax post forms
+  $(".new_post").each(function(){
+    $( this ).validate({
+       submitHandler: function(form) {
+       	$(form).ajaxSubmit( {
+             target: '#posts',
+             clearForm: true
+        });
+      }
+    });
   });
 
 });
