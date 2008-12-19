@@ -25,7 +25,7 @@
         <div class='clear'></div>
         <%= yield  %>
         <div id="footer">
-            hello! <%= link_to "Logout", logout_path if logged_in? %>
+            hello! <span class='right'><%= link_to "Logout", logout_path if logged_in? %></span>
         </div>
     </div>
     
