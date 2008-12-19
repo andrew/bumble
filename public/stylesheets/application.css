@@ -3,6 +3,9 @@ body {margin:0; padding:0; background:url('../images/background.png'); font-fami
 pre {background-color: #eee;padding: 10px;font-size: 11px; overflow: auto;}
 blockquote{font-style: italic; font-family:serif;}
 
+.left{float:left;}
+.right{float:right;}
+
 a { color: #1FA9FF; }
 
 h2{margin-top:0;}
@@ -18,7 +21,10 @@ h2{margin-top:0;}
 
 #header{position:absolute;}
 
-#main{width:660px; background:#fff; color:#000; margin:30px auto; padding:10px 20px;}
+#main{width:660px; background:#fff; color:#000; margin:30px auto; padding:10px 20px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  }
 .post{padding:10px 0 20px 0; }
 .post img{max-width:100%;}
 
@@ -48,3 +54,4 @@ label.error{float:right; color:red;}
 .code .via a{color:#888;}
 
 #footer{font-size:0.8em; color:#222;}
+#footer a{color:#aaa;}
