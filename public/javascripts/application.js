@@ -28,15 +28,26 @@ $(document).ready(function(){
     });
   });
 
+	// the ajax comments
+	$("#new_comment").submitWithAjax();
+
 });
 
 jQuery.ajaxSetup({ 
   'beforeSend': function(xhr) {xhr.setRequestHeader("Accept",
     "text/javascript")} 
-})
+});
 
 jQuery.validator.setDefaults({
   errorPlacement: function(error, element) {
        error.insertBefore(element);
      }
 });
+
+jQuery.fn.submitWithAjax = function() {
+  this.submit(function() {
+    $.post(this.action, $(this).serialize(), null, "script");
+    return false;
+  })
+  return this;
+};

@@ -10,6 +10,23 @@ class CommentsController < ApplicationController
       redirect_to post_path(resource.post), :status => :moved_permanently
     end
   end
+  
+  response_for :create do |format|
+    if resource_saved?
+      format.html do
+        redirect_to post_path(resource.post), :status => :moved_permanently
+      end
+      format.js
+    else
+      format.html do
+        render :action => "new"
+      end
+      format.js do
+        # if the jquery validation is working, this should never happen
+        render :text => "some error message"
+      end
+    end
+  end
 
   private
 
