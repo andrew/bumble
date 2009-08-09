@@ -1,0 +1,6 @@
+A new comment has been posted on <%= @comment.post.title %> by <%= @comment.author %>:
+
+<%= @comment.body %>
+
+-----
+See it here: <%= post_url(@comment.post, :anchor => dom_id(@comment)) %>

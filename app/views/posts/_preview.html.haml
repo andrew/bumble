@@ -1,0 +1,8 @@
+.preview.post.hentry{:class => post.class.to_s.downcase}
+  = render_post post
+  %p.meta
+    = link_to format_datetime_ago(post.published_at), '#', :rel => :bookmark
+    - unless post.via.blank?
+      %span.via
+        Via
+        = link_to truncate(post.via, :length => 24), post.via

@@ -1,5 +1,0 @@
-<%= simple_format comment.body %>
-
-By <%= comment_display_url(comment).blank? ? comment.display_name : link_to(comment.display_name, comment_display_url(comment)) %>, <%= distance_of_time_in_words_to_now(comment.created_at) %> ago 
-
-<%= link_to 'Edit', edit_post_comment_path(@post, comment) %> or <%= link_to 'Delete', post_comment_path(@post, comment), :confirm => 'Are you sure?', :method => :delete %>  

@@ -1,0 +1,8 @@
+%h2 Editing post
+
+- form_for :post, :url => post_path(@post), :html => {:method => :put} do |form|
+  = render :partial => "posts/forms/#{@post.class.to_s.downcase}", :locals => {:form => form}
+  = render form
+  = form.submit "Update"
+  or
+  = link_to 'Cancel', post_path(@post)

@@ -1,0 +1,12 @@
+.vcard[comment]{:class => ('author' if comment.user_id == comment.post.user.id)}
+  = link_to_unless comment.author_url.blank?, image_tag(comment.gravatar_url, :class => 'photo'), h(comment.author_url)
+  = markdown comment.body
+  %p.meta
+    = format_datetime_ago(comment.created_at)
+    by
+    = link_to_unless comment.author_url.blank?, h(comment.author), h(comment.author_url), :rel => :nofollow, :class => 'url fn'
+    - if current_user
+      \-
+      = link_to 'Edit', edit_post_comment_path(comment.post, comment)
+      |
+      = link_to 'Delete', post_comment_path(comment.post, comment), :class => :delete

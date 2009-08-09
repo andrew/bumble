@@ -1,49 +1,37 @@
 class UsersController < ApplicationController
+  before_filter :require_user, :except => [:activate]
 
-  resources_controller_for :users
-  
-  before_filter :login_required, :except => [:new, :create, :activate, :forgot_password, :reset_password]
+  make_resourceful do
+    actions :all, :except => :create
+    member_actions :delete
+  end
+
+  def create
+    @user = User.new(params[:user])
+    if @user.save_without_session_maintenance
+      @user.deliver_activation_instructions!
+      flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
+      redirect_to login_path
+    else
+      render :action => :new
+    end
+  end
 
   def activate
-    self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
-    if logged_in? && !current_user.active?
-      current_user.activate
-      flash[:notice] = "Signup complete!"
-    end
-    redirect_back_or_default('/')
-  end
-  
-  def forgot_password
-    return unless request.post?
-    if @user = User.find_by_email(params[:email])
-      @user.forgot_password
-      @user.save
-      redirect_to '/'
-      flash[:notice] = "A password reset link has been sent to your email address" 
+    @user = User.find_using_perishable_token(params[:activation_code], 1.week) || (raise Exception)
+    if @user.activate!
+      @user.deliver_activation_confirmation!
+      flash[:notice] = "Your account has been activated."
+      UserSession.create(@user)
+      redirect_to root_path
     else
-      flash[:notice] = "Could not find a user with that email address" 
-    end
-  end
-  
-  def reset_password
-    if !params[:id].blank? and @user = User.find_by_password_reset_code(params[:id])
-      @password_reset_code = params[:id]
-      return if @user unless params[:password]
-      if (params[:password] == params[:password_confirmation])
-        self.current_user = @user #for the next two lines to work
-        current_user.password_confirmation = params[:password_confirmation]
-        current_user.password = params[:password]
-        @user.reset_password
-        flash[:notice] = current_user.save ? "Password changed and we logged you in" : "Password not changed"
-        redirect_back_or_default(root_path)
-      else
-        flash[:notice] = "Password mismatch, go back and click the email link again" 
-        redirect_to '/home'
-      end  
-    else
-      flash[:notice] = "No password reset code = no password reset love" 
-      redirect_to '/home'
+      render :action => :new
     end
   end
 
+  private
+
+  def current_objects
+    @current_object ||= current_model.paginate :page => params[:page]
+  end
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080618224722) do
+ActiveRecord::Schema.define(:version => 20090723085933) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20080618224722) do
     t.string   "author_name"
     t.string   "author_email"
     t.string   "author_url"
+    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -32,29 +33,35 @@ ActiveRecord::Schema.define(:version => 20080618224722) do
     t.string   "permalink"
     t.integer  "user_id"
     t.string   "type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "publicly_viewable", :default => true
     t.datetime "published_at"
+    t.datetime "deleted_at"
+    t.string   "via"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "delta",             :default => true, :null => false
   end
 
   create_table "users", :force => true do |t|
-    t.string   "login"
-    t.string   "email"
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
+    t.string   "email",                             :null => false
+    t.string   "crypted_password",                  :null => false
+    t.string   "password_salt",                     :null => false
+    t.string   "persistence_token",                 :null => false
+    t.integer  "login_count",        :default => 0, :null => false
+    t.integer  "failed_login_count", :default => 0, :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
+    t.string   "perishable_token"
+    t.datetime "deleted_at"
+    t.datetime "activated_at"
+    t.string   "first_name"
+    t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_token"
-    t.datetime "remember_token_expires_at"
-    t.string   "activation_code",           :limit => 40
-    t.datetime "activated_at"
-    t.boolean  "admin",                                   :default => false
-    t.string   "password_reset_code"
-    t.datetime "last_login"
-    t.string   "permalink"
     t.string   "url"
-    t.string   "name"
   end
 
 end

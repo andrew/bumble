@@ -1,0 +1,20 @@
+#search.clearfix
+  %h2 Search Results
+
+  %p.meta
+    = page_entries_info @posts, :entry_name => 'post'
+    for
+    = "'#{h(params[:query])}'"
+
+- if @posts.any?
+  #posts= render :partial => 'post', :collection => @posts
+  = will_paginate @posts
+- else
+  %p
+    Nothing could be found for your search
+    %strong= "'#{h(params[:query])}'"
+  %p
+    You could try a different search, return to the
+    = link_to "homepage", root_path
+    or maybe
+    = link_to "google it?", "http://www.google.co.uk/search?q=#{params[:query]}"

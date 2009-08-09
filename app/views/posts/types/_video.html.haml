@@ -1,0 +1,5 @@
+- unless video.link_url.blank?
+  = youtube_embed(video.link_url)
+- else
+  = video.video_embed
+.description= markdown video.description

@@ -1,0 +1,20 @@
+#sidebar
+  %h3 Search
+  - form_tag search_posts_path, :method => :get, :id => 'search_form' do
+    .field= text_field_tag :query, params[:query], :placeholder => 'Keywords..', :type => 'search'
+    = submit_tag 'Search'
+  %h3 Links
+  %ul#links
+    %li.feed= link_to "Feed", posts_path(:format => :atom)
+    %li.email= mail_to CONTACT_EMAIL, "Email"
+
+  - if current_user
+    %h3 Admin
+    %p
+      = pluralize(Post.count, 'post')
+      and
+      = pluralize(Comment.count, 'comment')
+    %p
+      = link_to "Edit account", edit_user_path(current_user)
+      or
+      = link_to "Logout", logout_path

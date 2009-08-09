@@ -1,0 +1,74 @@
+@import reset.sass
+
+body
+  :width auto
+  :padding 10px
+#header
+  :height auto
+  :padding 10px 0
+  h1
+    :margin-left 0px
+
+.field
+  input[type='text'], input[type='search'], input[type='password'], textarea
+    :padding 4px 3px
+    :-webkit-appearance textfield
+
+#content
+  :width 100%
+  .flash
+    :position static
+    :margin-top 0
+  label.error
+    :margin -5px 0 0
+    :right 5px
+  #search
+    .meta
+      :float none
+  .open
+    :right 15px
+    :margin 0
+  #new_post
+    ul
+      li
+        :font-size 0.9em
+        :padding 2px 4px
+    .close
+      :position absolute
+      :margin -10px 0 0
+      :right 0
+  #posts
+    .post
+      :margin-bottom 20px
+  .post
+    :overflow scroll
+    h2
+      :margin-bottom 5px
+    .meta
+      :font-size 11px
+    img
+      :max-width 100%
+    object, embed
+      :width 100% !important
+  .pagination
+    :padding-top 0
+#sidebar
+  :width 100%
+  :margin 0
+  #search_form
+    .field
+      :display inline
+      input
+        :width 69%
+  h3
+    :padding 20px 0 0
+    :margin 0 0 12px
+  ul#links
+    :padding-bottom 0px
+    li
+      :margin-bottom 10px
+      :width 120px
+      :float left
+#footer
+  :clear both
+  :padding-top 15px

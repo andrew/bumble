@@ -1,15 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
-  
+  map.resources :posts, :collection => {:search => :get}, :has_many => :comments
+  map.resources :comments
+  map.resources :password_resets
   map.resources :users
-  map.resource :session
-  map.resources :posts, :has_many => :comments
   
-  map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
-  map.signup '/signup', :controller => 'users', :action => 'new', :resource_path => '/users/new'
-  map.login '/login', :controller => 'sessions', :action => 'new'
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-  
-  map.post_class '/:klass', :controller => 'posts', :action => 'index', :resource_path => '/posts'
-  map.root :controller => 'posts', :resource_path => '/posts'
-  
+  map.login     '/login',                     :controller => "user_sessions", :action => "new", :conditions => {:method => :get}
+  map.logout    '/logout',                    :controller => "user_sessions", :action => "destroy"
+  map.resource  :user_session, :as => 'login'
+
+  map.activate  '/activate/:activation_code', :controller => 'users',         :action => 'activate'
+
+  map.root      :controller => "posts"
 end

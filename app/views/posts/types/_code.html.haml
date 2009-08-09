@@ -1,0 +1,6 @@
+%h2.entry-title
+  - if !code.read_attribute(:title).blank?
+    = link_to_unless code.link_url.blank?, code.title, code.link_url, :rel => 'external'
+  - elsif code.link_url
+    = link_to code.link_url, code.link_url, :rel => 'external'
+%pre.entry-content= escape_once code.description

@@ -1,0 +1,16 @@
+.post.hentry{:class => post.class.to_s.downcase, :id => "post_#{post.id}"}
+  = render_post post
+  %p.meta
+    = link_to format_datetime_ago(post.published_at), post_path(post), :rel => :bookmark
+    - if post.comments.any? 
+      with
+      = link_to pluralize(post.comments.count, 'comment'), post_path(post, :anchor => 'comments')
+    - if current_user
+      \-
+      = link_to "Edit", edit_post_path(post)
+      |
+      = link_to "Delete", post_path(post), :class => :delete
+    - unless post.via.blank?
+      %span.via
+        Via
+        = link_to truncate(post.via, :length => 24), post.via

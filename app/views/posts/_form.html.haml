@@ -1,0 +1,8 @@
+.field
+  = form.check_box :publicly_viewable
+  = form.label :publicly_viewable, 'Public?'
+.field
+  Publish Date:
+  = form.datetime_select :published_at, :start_year => Time.now.year
+.field= form.text_field :permalink, :placeholder => 'Custom Permalink..'
+.field= form.text_field :via, :placeholder => 'via..'

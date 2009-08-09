@@ -1,5 +1,0 @@
-<div class='link  post'>
-    <h2><%= link_to (link.title.blank? ? link.link_url : link.title), link.link_url %></h2>
-    <%= simple_format link.description unless link.description.blank? %>
-    <%= link_to '*', post_path(link) %>
-</div>

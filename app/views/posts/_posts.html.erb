@@ -1,6 +1,0 @@
-<% if @posts.empty? %>
-    <p>No Posts!</p>
-<% else %>
-    <%= render :partial => @posts %>
-    <%= will_paginate @posts, :page_links => false %>
-<% end %>

@@ -1,0 +1,8 @@
+%h2 New post
+
+- form_for @post, :url => posts_path do |form|
+  = render :partial => "posts/forms/#{@post.type.downcase}", :locals => {:form => form}
+  = render :partial => form
+  = form.submit "Create"
+  or
+  = link_to 'Cancel', posts_path

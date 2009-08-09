@@ -1,6 +1,0 @@
-<h2>Editing comment</h2>
-
-<% form_for([@post, @comment], :url => post_comment_path(@post, @comment)) do |f| %>
-    <%= render :partial => 'form', :locals => {:f => f} %>
-    <p><%= f.submit "Update" %> or <%= link_to 'Cancel', post_path(@comment.post) %></p>
-<% end %>

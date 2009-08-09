@@ -1,0 +1,3 @@
+.entry-content.hmedia
+  = link_to_unless image.link_url.blank?, image_tag(image.image_url, :class => :photo), image.link_url, :rel => :external, :class => :enclosure
+  .description= markdown image.description

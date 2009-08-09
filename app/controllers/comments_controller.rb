@@ -1,39 +1,67 @@
 class CommentsController < ApplicationController
 
-  resources_controller_for :comments
-  nested_in :post do
-    logged_in_scope.find_by_permalink(params[:post_id]) or logged_in_scope.find(params[:post_id])
-  end
-  
-  response_for :show, :index do |format|
-    format.html do
-      redirect_to post_path(resource.post), :status => :moved_permanently
+  before_filter :require_user, :only => [:edit, :update, :destroy]
+
+  make_resourceful do
+    actions :all
+    belongs_to :post
+    before :create do
+      current_object.user = current_user
     end
-  end
-  
-  response_for :create do |format|
-    if resource_saved?
+
+    response_for :index do |format|
+      format.html { redirect_to post_path(parent_object, :anchor => 'comments') }
+      format.atom {}
+      format.js { render current_objects }
+    end
+
+    response_for :show do |format|
+      format.html { redirect_to post_path(parent_object, :anchor => dom_id(current_object)) }
+    end
+
+    response_for :destroy do |format|
       format.html do
-        redirect_to post_path(resource.post), :status => :moved_permanently
+        flash[:notice] = 'Record deleted!'
+        redirect_to post_path(parent_object)
       end
-      format.js
-    else
+    end
+
+    response_for :update do |format|
       format.html do
-        render :action => "new"
+        flash[:notice] = 'Save successful!'
+        redirect_to post_path(parent_object, :anchor => dom_id(current_object))
       end
-      format.js do
-        # if the jquery validation is working, this should never happen
-        render :text => "some error message"
+    end
+
+    response_for :create do |format|
+      format.html do
+        flash[:notice] = 'Create successful!'
+        redirect_to post_path(parent_object, :anchor => dom_id(current_object))
       end
+      format.js { render current_object }
+    end
+
+    response_for :create_fails do |format|
+      format.html { render :action => "new" }
+      format.js   { render :text => current_object.errors.full_messages.join(', ').capitalize, :status => 403 }
+    end
+
+    response_for :destroy do |format|
+      format.html do
+        flash[:notice] = 'Record deleted!'
+        redirect_to post_path(current_object.post)
+      end
+      format.js { render :nothing => true }
     end
   end
 
   private
 
-  def new_resource
-    returning resource_service.new(params[resource_name]) do |comment|
-      comment.user = current_user if logged_in?
-    end
+  def parent_model
+    current_user ? super : Post.published.all_public
   end
 
+  def parent_object
+    @parent_object ||= parent_model.find_by_permalink_or_id(params["#{parent_name}_id"])
+  end
 end

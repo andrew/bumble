@@ -1,0 +1,21 @@
+- @page_title = @post.title
+= render :partial => 'post', :object => @post
+
+#comments= render @post.comments
+
+- form_for :comment, :url => post_comments_path(@post), :html =>{:class => 'new_comment'} do |form|
+  = render :partial => 'comments/form', :object => form
+  #formatting
+    %span.bold 
+      %strong *bold*
+    %span.link
+      = link_to "&lt;http://link.com&gt;", 'http://link.com'
+    %span.italic
+      %em _italic_
+    %span.code
+      %pre code (indent 4 spaces)
+    .more
+      Read more:
+      = link_to "http://en.wikipedia.org/wiki/Markdown", "http://en.wikipedia.org/wiki/Markdown", :rel => :external
+  = form.submit "Post Comment"
+  = link_to "Formatting", '#formatting', :class => 'help'

@@ -1,9 +1,0 @@
-<div class='image post'>
-    <% if image.link_url.blank? %>
-        <%= image_tag image.image_url %>
-    <% else %>
-        <%= link_to image_tag(image.image_url), image.link_url %>
-    <% end %>
-    <%= simple_format image.description unless image.description.blank? %>
-    <%= link_to '*', post_path(image) %>
-</div>

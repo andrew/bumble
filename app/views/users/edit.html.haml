@@ -1,0 +1,8 @@
+%h2
+  Editing
+  = @user
+
+- form_for @user do |form|
+  = form.error_messages
+  = render form
+  = form.submit

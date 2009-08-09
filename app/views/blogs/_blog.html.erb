@@ -1,7 +1,0 @@
-<div class='image post'>
-    <% unless blog.title.blank? %>
-        <h2><%= blog.title %></h2>
-    <% end %>
-    <%= simple_format blog.description %>
-    <%= link_to '*', post_path(blog) %>
-</div>
