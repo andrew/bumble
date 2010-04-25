@@ -158,13 +158,4 @@ $(document).ready(function(){
 
   // fade out flash
   setTimeout(function(){$(".flash").fadeOut(1000);},10000);
-
-  // Google analtyics
-  var gaTrackCode = "UA-265870-16";
-  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-  jQuery.getScript(gaJsHost + "google-analytics.com/ga.js", function(){
-    var pageTracker = _gat._getTracker(gaTrackCode);
-    pageTracker._initData();
-    pageTracker._trackPageview();
-  });
 });
