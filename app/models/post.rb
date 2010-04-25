@@ -8,6 +8,8 @@ class Post < ActiveRecord::Base
 
   validates_presence_of :user, :published_at
 
+  before_validation_on_create :format_published_at
+
   def to_param
     permalink.blank? ? id.to_s : permalink
   end
@@ -52,5 +54,9 @@ class Post < ActiveRecord::Base
     where 'posts.deleted_at IS NULL AND posts.publicly_viewable = 1'
 
     set_property :delta => true
+  end
+
+  def format_published_at
+    self.published_at = Time.now if self.published_at < Time.now
   end
 end

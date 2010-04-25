@@ -23,6 +23,7 @@ class PostsController < ApplicationController
     load_object
     current_object.user = current_user
     if params[:commit] == "Preview"
+      current_object.valid?
       respond_to do |format|
         format.html do
           flash[:notice] = 'Create successful!'
