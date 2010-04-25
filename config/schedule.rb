@@ -1,6 +1,6 @@
 # reindex the database
 every 1.day, :at => '3:30 am' do
-  rake "thinking_sphinx:index"
+  rake "thinking_sphinx:rebuild"
 end
 
 # recreate the sitemap
