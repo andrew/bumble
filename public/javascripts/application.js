@@ -113,7 +113,9 @@ $(document).ready(function(){
             $('#posts').prepend(data);
             if ($('.preview').size() == 0){
               $(form).resetForm();
-              $('#posts .post:last').remove();
+              if ($('.pagination').size() > 0){
+                $('#posts .post:last').remove();
+              }
             }
             $(form).hintFields();
           },
