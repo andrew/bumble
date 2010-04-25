@@ -106,8 +106,14 @@ $(document).ready(function(){
       },
       submitHandler: function(form){
         $(form).ajaxSubmit({
-          beforeSubmit: function(){$('.new_post .submit').after('<img src="/images/loading.gif" class="loading" />');},
-          complete: function(){$('.loading').remove();},
+          beforeSubmit: function(){
+            $('.new_post .submit').after('<img src="/images/loading.gif" class="loading" />');
+            $('.new_post :submit').attr('disabled', 'disabled');
+            },
+          complete: function(){
+            $('.loading').remove();
+            $('.new_post :submit').removeAttr('disabled');
+            },
           success: function(data){
             $('.preview').remove();
             $('#posts').prepend(data);
