@@ -19,6 +19,7 @@
       = javascript_include_tag 'iphone'
       %link{:rel => "apple-touch-icon", :href => "/images/home-icon.png"}
     %title= page_title
+    = yield :header
   %body
     #header
       %h1= link_to DOMAIN, root_path, :rel => :home

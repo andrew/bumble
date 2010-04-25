@@ -1,20 +1,27 @@
+- content_for :header do
+  = auto_discovery_link_tag :atom, search_posts_url(:query => h(params[:query]), :format => :atom), :title => "Search for '#{h(params[:query])}' feed"
 #search.clearfix
   %h2 Search Results
 
-  %p.meta
-    = page_entries_info @posts, :entry_name => 'post'
-    for
-    = "'#{h(params[:query])}'"
+  - if params[:query].present?
+    %p.meta
+      = page_entries_info @posts, :entry_name => 'post'
+      for
+      = "'#{h(params[:query])}'"
 
-- if @posts.any?
+- if params[:query].present? && @posts.any?
   #posts= render :partial => 'post', :collection => @posts
   = will_paginate @posts
-- else
+- elsif params[:query].present?
   %p
     Nothing could be found for your search
-    %strong= "'#{h(params[:query])}'"
+    - if params[:query].present?
+      %strong= "'#{h(params[:query])}'"
+- else
+  %p You didn't enter anything to search for?!
   %p
     You could try a different search, return to the
     = link_to "homepage", root_path
-    or maybe
-    = link_to "google it?", "http://www.google.co.uk/search?q=#{params[:query]}"
+    - if params[:query].present?
+      or maybe
+      = link_to "google it?", "http://www.google.co.uk/search?q=#{params[:query]}"

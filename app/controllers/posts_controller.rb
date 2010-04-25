@@ -49,7 +49,13 @@ class PostsController < ApplicationController
   end
 
   def search
-    @posts = current_model.search(params[:query], :page => params[:page]).compact
+    @posts = current_model.search(params[:query], :page => params[:page],
+                                                  :order => 'published_at DESC',
+                                                  :per_page => per_page)
+    respond_to do |format|
+      format.html
+      format.atom { render :action => :index}
+    end
   end
 
   private
