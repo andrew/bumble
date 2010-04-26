@@ -9,7 +9,5 @@ require 'rake/rdoctask'
 
 require 'tasks/rails'
 
-begin
-  require 'thinking_sphinx/tasks'
-rescue LoadError
-end
+require 'thinking_sphinx/tasks' rescue LoadError
+require 'sitemap_generator/tasks' rescue LoadError

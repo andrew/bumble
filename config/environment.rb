@@ -11,6 +11,7 @@ Rails::Initializer.run do |config|
   config.gem 'will_paginate',       :version => '>=2.3.11', :lib => 'will_paginate'
   config.gem 'is_paranoid',         :version => '>=0.8.2',  :lib => 'is_paranoid'
   config.gem 'whenever',            :version => '>=0.3.6',  :lib => false
+  config.gem 'sitemap_generator',   :version => '>=0.2.3',  :lib => false
   config.gem 'gravtastic',          :version => '>=2.1.3'
   config.gem 'authlogic',           :version => '>=2.1.1'
   config.gem 'bluecloth',           :version => '>=2.0.5'
