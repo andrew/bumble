@@ -1,6 +1,6 @@
 module ApplicationHelper
-  def render_post(post)
-    render :partial => "posts/types/#{post.class.to_s.downcase}.html.haml", :object => post
+  def render_post(post, title = true)
+    render :partial => "posts/types/#{post.class.to_s.downcase}.html.haml", :object => post, :locals => {:title => title}
   end
 
   def format_datetime_ago(time)

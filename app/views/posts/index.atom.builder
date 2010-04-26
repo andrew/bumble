@@ -9,7 +9,7 @@ atom_feed(:schema_date => 2009, :root_url => root_url, :url => posts_url(:format
         author.name post.user.name
         author.url post.user.url
       end
-      entry.content render_post(post), :type => 'html'
+      entry.content render_post(post, false), :type => 'html'
     end
   end
 end
