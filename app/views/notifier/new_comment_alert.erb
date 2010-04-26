@@ -1,4 +1,4 @@
-A new comment has been posted on <%= @comment.post.title %> by <%= @comment.author %>:
+A new comment has been posted on <%= @comment.post.title %> by <%= @comment.author %><%= " (#{@comment.author_url})" if @comment.author_url.present? %>:
 
 <%= @comment.body %>
 
