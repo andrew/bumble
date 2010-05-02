@@ -12,7 +12,9 @@
         var AUTH_TOKEN=#{form_authenticity_token.inspect};
     = stylesheet_link_tag('application')
     = stylesheet_link_tag('print', :media => :print)
-    = javascript_include_tag 'jquery', 'jquery.validate', 'jquery.cookie', 'jquery.form', 'jquery.hint', 'jquery.livequery', 'ui.core', 'ui.tabs', 'jquery.jgrow', 'application', :cache => true
+    = javascript_include_tag 'jquery', 'jquery.validate', 'jquery.form', 'jquery.hint', 'jquery.autogrow', 'modernizr', 'application', :cache => 'all'
+    - if current_user
+      = javascript_include_tag 'jquery.cookie', 'jquery.ui.core', 'jquery.ui.widget', 'jquery.ui.tabs', 'admin'
     - if iphone?
       %meta{:name => "viewport", :content => "width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"}
       = stylesheet_link_tag 'iphone'

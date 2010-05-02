@@ -1,6 +1,6 @@
 jQuery.fn.hintFields = function(){
-  for (var i = 0; i < this.length; i++){
-    if (!$.browser.safari){ $('input:text', this[i]).hint();}
+  for (var i = 0, l = this.length; i < l; i++){
+    if (!Modernizr.input.placeholder){ $('input:text', this[i]).hint();}
     $('textarea', this[i]).hint();
   }
 };
@@ -11,6 +11,10 @@ $(document).ready(function(){
     errorPlacement: function(error, element){ error.insertBefore(element); },
     ignoreTitle: true
   });
+
+  if ($.browser.webkit){
+    $('input[type="search"]').attr({autosave: location.host, results: 10})
+  }
 
   // rails ajax setup
   jQuery.ajaxSetup({
@@ -25,115 +29,19 @@ $(document).ready(function(){
     settings.data += (settings.data ? "&" : "") + "authenticity_token=" + encodeURIComponent(AUTH_TOKEN);
   });
 
-  // ajax delete
-  $('a.delete').livequery('click', function(){
-    var elem = $(this);
-    if (confirm("Are you sure?")){
-      $.post($(this).attr('href'), "_method=delete",function(){
-        elem.closest('div').slideUp();
-      });
-    }
-    return false;
-  }).attr("rel", "nofollow");
-
   // open external links in a new window
   $('a[rel="external"]').click( function(){
     window.open($(this).attr('href'));
     return false;
   });
 
-  // new post form tabs
-  $("#new_post > ul").tabs({cookie: {}});
-
-  if ($.cookie("hide_new_post") == 'false') {
-    $('#new_post').show();
-    $('a.open').hide();
-  }
-  else {
-    $('#new_post').hide();
-    $('a.open').show();
-  }
-
-  $('.ui-tabs-nav').bind('tabsselect', function(event, ui) {
-    $('label.error').remove();
-    $('a.more').show();
-    $('div.more').hide();
-    $('.ui-tabs-nav').hintFields();
-  });
-
-  $('a.open').click(function(){
-    $('a.open').fadeOut();
-    $('#new_post').slideDown();
-    $.cookie("hide_new_post", 'false');
-    return false;
-  });
-
-  $('a.close').click(function(){
-    $('#new_post').slideUp(function(){
-      $('a.open').fadeIn();
-    });
-    $.cookie("hide_new_post", 'true');
-    $('.preview').remove();
-    return false;
-  });
-
-  // extra post options
-  $('#new_post div.more').hide();
-  $('#new_post a.more').click(function(){
-    $('#new_post div.more').slideDown();
-    $(this).hide();
-    return false;
-  });
-
   // text field hints
   $('form').hintFields();
-  
+
+  // slide open/closed the formatting help div
   $('a.help').click(function(){
     $('#formatting').toggle(100);
     return false;
-  });
-
-  // expanding textareas
-  $('textarea').jGrow();
-
-  // setup validation and ajax post forms
-  $(".new_post").each(function(){
-    $(this).validate({
-      rules: {
-        'video[video_embed]': {
-          required: "#video_link_url:blank"
-        }
-      },
-      submitHandler: function(form){
-        $(form).ajaxSubmit({
-          beforeSubmit: function(){
-            $('.new_post .submit').after('<img src="/images/loading.gif" class="loading" />');
-            $('.new_post :submit').attr('disabled', 'disabled');
-            },
-          complete: function(){
-            $('.loading').remove();
-            $('.new_post :submit').removeAttr('disabled');
-            },
-          success: function(data){
-            $('.preview').remove();
-            $('#posts').prepend(data);
-            if ($('.preview').size() == 0){
-              $(form).resetForm();
-              if ($('.pagination').size() > 0){
-                $('#posts .post:last').remove();
-              }
-            }
-            $(form).hintFields();
-          },
-          error:function(request, textStatus, errorThrown) {
-            var message = (request.status == 401 || request.status == 403) ? 
-              request.responseText : "An unknown error occurred. Support has been contacted.";
-            alert(message);
-          }
-
-        });
-      }
-    });
   });
 
   // setup validation and ajax comments forms
@@ -148,9 +56,12 @@ $(document).ready(function(){
           $(form).resetForm().hintFields();
           },
           error:function(request, textStatus, errorThrown) {
-            var message = (request.status == 401 || request.status == 403) ? 
+            var message = (request.status == 401 || request.status == 403 || request.status == 406) ? 
               request.responseText : "An unknown error occurred. Support has been contacted.";
             alert(message);
+            if (request.status == 406) {
+              $(form).resetForm().hintFields();
+            }
           }
       });
     }
@@ -158,4 +69,5 @@ $(document).ready(function(){
 
   // fade out flash
   setTimeout(function(){$(".flash").fadeOut(1000);},10000);
+
 });
