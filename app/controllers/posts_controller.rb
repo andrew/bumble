@@ -25,7 +25,7 @@ class PostsController < ApplicationController
     if params[:commit] == "Preview"
       current_object.valid?
       respond_to do |format|
-        format.js { render :partial => 'preview', :locals => {:post => current_object} }
+        format.js { render :partial => 'preview', :locals => {:post => current_object}, :content_type => :html }
         format.html do
           flash[:notice] = 'Create successful!'
           redirect_to posts_path
@@ -34,7 +34,7 @@ class PostsController < ApplicationController
     else
       if current_object.save
         respond_to do |format|
-          format.js { render :partial => 'post', :locals => {:post => current_object} }
+          format.js { render :partial => 'post', :locals => {:post => current_object}, :content_type => :html }
           format.html do
             flash[:notice] = 'Create successful!'
             redirect_to post_path(current_object)
@@ -42,7 +42,7 @@ class PostsController < ApplicationController
         end
       else
         respond_to do |format|
-          format.js   { render :text => current_object.errors.full_messages.join(', ').capitalize, :status => 403 }
+          format.js   { render :text => current_object.errors.full_messages.join(', ').capitalize, :status => 403, :content_type => :html }
           format.html { render :action => "new" }
         end
       end

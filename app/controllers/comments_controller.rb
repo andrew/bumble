@@ -38,12 +38,12 @@ class CommentsController < ApplicationController
         flash[:notice] = 'Create successful!'
         redirect_to post_path(parent_object, :anchor => dom_id(current_object))
       end
-      format.js { render current_object }
+      format.js { render current_object, :content_type => :html }
     end
 
     response_for :create_fails do |format|
       format.html { render :action => "new" }
-      format.js   { render :text => current_object.errors.full_messages.join(', ').capitalize, :status => 403 }
+      format.js   { render :text => current_object.errors.full_messages.join(', ').capitalize, :status => 403, :content_type => :html }
     end
 
     response_for :destroy do |format|
