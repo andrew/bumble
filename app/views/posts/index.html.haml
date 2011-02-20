@@ -1,3 +1,4 @@
+- @page_title = "Page #{@posts.current_page}" unless @posts.current_page == 1
 - if current_user
   = link_to "New Post", '#', :class => 'open'
   #new_post
@@ -13,9 +14,8 @@
         = form.submit "Preview", :id => "#{form.object_name}_preview"
         = form.submit "Post", :class => 'submit'
 
-#posts.hfeed
-  - if @posts.blank?
-    .blank No posts :'(
-  - else
-    = render :partial => 'post', :collection => @posts
-    = will_paginate @posts
+- if @posts.blank?
+  .blank No posts :'(
+- else
+  #posts.hfeed= render :partial => 'post', :collection => @posts
+  = will_paginate @posts

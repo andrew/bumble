@@ -1,5 +1,9 @@
 - unless current_user
+  = form.label :author_name, 'Name'
   .field= form.text_field :author_name, :class => "required", :placeholder => 'Name..'
+  = form.label :author_email, 'Email'
   .field= form.email_field :author_email, :class => "required email", :placeholder => 'Email..', :autocorrect => 'off'
+  = form.label :author_url, 'Url'
   .field= form.url_field :author_url, :class => 'url', :placeholder => 'Url..'
+= form.label :body, 'Your Comment'
 .field= form.text_area :body, :rows => 6, :class => "required", :placeholder => 'Your comment..'

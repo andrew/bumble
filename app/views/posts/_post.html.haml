@@ -2,9 +2,9 @@
   = render_post post
   %p.meta
     = link_to format_datetime_ago(post.published_at), post_path(post), :rel => :bookmark
-    - if post.comments.any? 
+    - if (current_user ? post.comments.any? : post.comments.ham.any?)
       with
-      = link_to pluralize(post.comments.count, 'comment'), post_path(post, :anchor => 'comments')
+      = link_to pluralize((current_user ? post.comments.count : post.comments.ham.count), 'comment'), post_path(post, :anchor => 'comments')
     - if current_user
       \-
       = link_to "Edit", edit_post_path(post)

@@ -1,12 +1,13 @@
 - @page_title = @post.title
+- @page_description = @post.description
 = render :partial => 'post', :object => @post
 
-#comments= render @post.comments
+#comments= render(current_user ? @post.comments : @post.comments.ham)
 
 - form_for :comment, :url => post_comments_path(@post), :html =>{:class => 'new_comment'} do |form|
   = render :partial => 'comments/form', :object => form
   #formatting
-    %span.bold 
+    %span.bold
       %strong *bold*
     %span.link
       = link_to "&lt;http://link.com&gt;", 'http://link.com'

@@ -2,7 +2,9 @@
 
 - form_for @user, :url => password_reset_path, :method => :put do |f|
   = f.error_messages
+  = f.label :password
   .field= f.password_field :password, :placeholder => 'Password..'
+  = f.label :password_confirmation
   .field= f.password_field :password_confirmation, :placeholder => 'Password Confirmation..'
 
   = f.submit "Update my password and log me in"

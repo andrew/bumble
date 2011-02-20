@@ -1,5 +1,7 @@
-- form_for @user_session, :url => user_session_path do |f|
+- form_for :user_session, :url => user_session_path do |f|
+  = f.label :email
   .field= f.email_field :email, :class => 'required email', :placeholder => 'Email..', :autocorrect => 'off'
+  = f.label :password
   .field= f.password_field :password, :class => 'required', :placeholder => 'Password..'
   .field
     = f.check_box :remember_me

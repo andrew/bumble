@@ -2,5 +2,7 @@ A new comment has been posted on <%= @comment.post.title %> by <%= @comment.auth
 
 <%= @comment.body %>
 
+It<%= @comment.approved ? " doesn't look like" : "'s been marked as" %> spam.
+
 -----
 See it here: <%= post_url(@comment.post, :anchor => dom_id(@comment)) %>

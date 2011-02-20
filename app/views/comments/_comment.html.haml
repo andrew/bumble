@@ -10,3 +10,5 @@
       = link_to 'Edit', edit_post_comment_path(comment.post, comment)
       |
       = link_to 'Delete', post_comment_path(comment.post, comment), :class => :delete
+      |
+      = spam_link_for comment

@@ -1,3 +1,9 @@
-.field= form.url_field :image_url, :class => "required url image", :placeholder => 'Image url..'
+- form.object.assets.build if form.object.new_record?
+- form.fields_for :assets do |asset_form|
+  = asset_form.label :attachment_url
+  .field= asset_form.url_field :attachment_url, :class => "required url image", :placeholder => 'Image url..', :value => asset_form.object.attachment_remote_url
+
+= form.label :link_url
 .field= form.url_field :link_url, :class => 'url', :placeholder => 'Link..'
+= form.label :descriptions
 .field= form.text_area :description, :rows => 6, :placeholder => 'Description..'
