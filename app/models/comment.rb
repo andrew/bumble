@@ -56,7 +56,7 @@ class Comment < ActiveRecord::Base
   def akismet_attributes
     {
       :key                  => '4a8bfe691b69',
-      :blog                 => 'http://teabass.com',
+      :blog                 => "http://#{DOMAIN}",
       :user_ip              => user_ip,
       :user_agent           => user_agent,
       :comment_author       => author,

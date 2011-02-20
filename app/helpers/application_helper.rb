@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   def page_title
-    escape_once(strip_tags(["Teabass.com", @page_title].compact.reject(&:blank?).join(' | ')))
+    escape_once(strip_tags([DOMAIN, @page_title].compact.reject(&:blank?).join(' | ')))
   end
 
   def page_description

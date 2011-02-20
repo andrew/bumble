@@ -11,7 +11,7 @@ class Asset < ActiveRecord::Base
                     :storage => :s3,
                     :path => ":basename:normalized_style.:extension",
                     :default_style => :original,
-                    :bucket => 'teabass_production',
+                    :bucket => 'bumble_production',
                     :s3_credentials => { :access_key_id => ENV['s3_access_key_id'], :secret_access_key => ENV['s3_secret_access_key'] },
                     :s3_headers => { 'Cache-Control' => 'max-age=315576000', 'Expires' => 10.years.from_now.httpdate },
                     :styles => { :thumb => '500x500>'}
