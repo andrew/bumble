@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :first_name
 
+  is_gravtastic :with => :email, :rating => 'R', :size => 30
+
   def to_s
     first_name
   end
