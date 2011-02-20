@@ -10,6 +10,8 @@ gem 'texticle'
 gem 'paperclip'
 gem 'pg'
 gem 'aws-s3'
+gem 'permalink_fu'
+
 group :production do
   gem 'hassle', :git => 'git://github.com/koppen/hassle.git'
 end
