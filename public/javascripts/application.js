@@ -44,6 +44,9 @@ $(document).ready(function(){
     return false;
   });
 
+  // expanding textareas
+  // $('textarea').simpleautogrow();
+
   // setup validation and ajax comments forms
   $(".new_comment").validate({
     submitHandler: function(form){

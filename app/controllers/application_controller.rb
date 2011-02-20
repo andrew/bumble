@@ -1,16 +1,12 @@
 class ApplicationController < ActionController::Base
-
-  helper :all
   protect_from_forgery
-
-  filter_parameter_logging :password, :password_confirmation
 
   helper_method :current_user_session, :current_user, :iphone?
 
   private
 
   def iphone?
-    request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]
+    request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/iP[^a].+iPhone/]
   end
 
   def current_user_session

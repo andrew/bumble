@@ -1,14 +1,19 @@
 class Post < ActiveRecord::Base
-  is_paranoid
-
-  has_many :comments, :dependent => :destroy
+  has_many :assets, :dependent => :destroy
+  has_many :comments, :dependent => :destroy, :order => :created_at
   belongs_to :user
 
-  has_permalink :title, :unless => Proc.new { |post| post.read_attribute(:title).blank? }
+  accepts_nested_attributes_for :assets
+
+  # has_permalink :title, :unless => Proc.new { |post| post.read_attribute(:title).blank? }
 
   validates_presence_of :user, :published_at
 
   before_validation_on_create :format_published_at
+
+  def asset
+    assets.first
+  end
 
   def to_param
     permalink.blank? ? id.to_s : permalink
@@ -26,34 +31,24 @@ class Post < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 5
 
-  named_scope :all_public, :conditions => {:publicly_viewable => true}
-  named_scope :all_private, :conditions => {:publicly_viewable => false}
-  named_scope :published, lambda {{:conditions => ["published_at < :now", { :now => Time.now.utc }]}}
+  scope :all_public, :conditions => {:publicly_viewable => true}
+  scope :all_private, :conditions => {:publicly_viewable => false}
+  scope :published, lambda {{:conditions => ["published_at < :now", { :now => Time.now.utc }]}}
 
   def title
     read_attribute(:title).blank? ? "Post #{id}" : read_attribute(:title)
   end
 
-  define_index do
-    # fields
-    indexes :title
-    indexes :link_url
-    indexes :image_url
-    indexes :video_embed
-    indexes :description
-    indexes :quote
-    indexes :permalink
-    indexes :type
-    indexes :via
-
-    indexes comments.body, :as => :comments_body
-
-    # attributes
-    has :created_at, :updated_at, :published_at, :user_id
-
-    where 'posts.deleted_at IS NULL AND posts.publicly_viewable = 1'
-
-    set_property :delta => true
+  index do
+    title
+    link_url
+    image_url
+    video_embed
+    description
+    quote
+    permalink
+    type
+    via
   end
 
   def format_published_at

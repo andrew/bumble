@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def markdown(text)
+    text.blank? ? "" : sanitize(RDiscount.new(text).to_html, :tags => %w(a p pre code b strong em i strike ul ol li blockquote br))
+  end
+
   def render_post(post, title = true)
     render :partial => "posts/types/#{post.class.to_s.downcase}.html.haml", :object => post, :locals => {:title => title}
   end
@@ -14,11 +18,11 @@ module ApplicationHelper
   end
 
   def page_title
-    [DOMAIN, @page_title].compact.reject(&:blank?).join(' | ')
+    escape_once(strip_tags(["Teabass.com", @page_title].compact.reject(&:blank?).join(' | ')))
   end
 
-  def markdown(content)
-    sanitize(super, :tags => %w(a p pre code b strong em i strike ul ol li blockquote br))
+  def page_description
+    escape_once((@page_description || 'The website of Andrew Nesbitt, a web developer from London. Expect to find posts and links about technology, the web, ruby, rails, html, css, jquery and random cat pictures.'))
   end
 
   def youtube_embed(link, width = 500, height = 300)
@@ -30,6 +34,14 @@ module ApplicationHelper
         tag(:param, :name => 'allowscriptaccess', :value => 'always') +
         tag(:embed, :src => "http://www.youtube.com/v/#{youtube_id}", :type => 'application/x-shockwave-flash', :allowscriptaccess => 'always', :allowfullscreen => 'true', :width => width, :height => height)
       end
+    end
+  end
+
+  def spam_link_for(comment)
+    if comment.approved?
+      link_to 'Spam', reject_comment_path(comment)
+    else
+      link_to 'Approve', approve_comment_path(comment)
     end
   end
 end

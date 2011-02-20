@@ -1,8 +1,6 @@
 class Comment < ActiveRecord::Base
 
-  is_paranoid
-
-  belongs_to :post
+  belongs_to :post # TODO , :counter_cache => true
   belongs_to :user
 
   validates_presence_of :post, :body
@@ -13,6 +11,10 @@ class Comment < ActiveRecord::Base
 
   after_save :set_parent_delta
   after_create :email_post_author
+
+  scope :ham, :conditions => {:approved => true}
+  scope :spam, :conditions => {:approved => false}
+  scope :old, lambda {{:conditions => ["created_at < :now", { :now => 14.days.ago }]}}
 
   def set_parent_delta
     self.post.update_attributes(:delta => true)
@@ -36,5 +38,41 @@ class Comment < ActiveRecord::Base
 
   def author_url
     anonymous? ? read_attribute(:author_url) : user.url
+  end
+
+  before_create :check_for_spam
+
+  def request=(request)
+    self.user_ip    = request.remote_ip
+    self.user_agent = request.env['HTTP_USER_AGENT']
+    self.referrer   = request.env['HTTP_REFERER']
+  end
+
+  def check_for_spam
+    self.approved = !Akismetor.spam?(akismet_attributes)
+    true # return true so it doesn't stop save
+  end
+
+  def akismet_attributes
+    {
+      :key                  => '4a8bfe691b69',
+      :blog                 => 'http://teabass.com',
+      :user_ip              => user_ip,
+      :user_agent           => user_agent,
+      :comment_author       => author,
+      :comment_author_email => email,
+      :comment_author_url   => author_url,
+      :comment_content      => body
+    }
+  end
+
+  def mark_as_spam!
+    update_attribute(:approved, false)
+    Akismetor.submit_spam(akismet_attributes)
+  end
+
+  def mark_as_ham!
+    update_attribute(:approved, true)
+    Akismetor.submit_ham(akismet_attributes)
   end
 end

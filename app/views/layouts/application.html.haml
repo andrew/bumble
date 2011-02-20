@@ -12,7 +12,7 @@
         var AUTH_TOKEN=#{form_authenticity_token.inspect};
     = stylesheet_link_tag('application')
     = stylesheet_link_tag('print', :media => :print)
-    = javascript_include_tag 'jquery', 'jquery.validate', 'jquery.form', 'jquery.hint', 'jquery.autogrow', 'modernizr', 'application', :cache => 'all'
+    = javascript_include_tag 'jquery', 'jquery.validate', 'jquery.form', 'jquery.hint', 'jquery.autogrow', 'modernizr', 'application'
     - if current_user
       = javascript_include_tag 'jquery.cookie', 'jquery.ui.core', 'jquery.ui.widget', 'jquery.ui.tabs', 'admin'
     - if iphone?
@@ -31,6 +31,7 @@
       = yield
     = render 'layouts/sidebar'
     #footer
-      = link_to "&#x2191;", '#header', :class => 'up', :title => 'Back to top'
+      = link_to '#header', :class => 'up', :title => 'Back to top' do
+        &#x2191;
       Powered by
       = link_to "Bumble", 'http://github.com/andrew/bumble'

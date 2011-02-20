@@ -13,7 +13,7 @@ class Notifier < ActionMailer::Base
 
   def activation_confirmation(user)
     setup(user)
-    subject       "Welcome to Bumble"
+    subject       "Welcome to #{DOMAIN}"
     body          :root_url => root_url
   end
 
@@ -27,8 +27,8 @@ class Notifier < ActionMailer::Base
 
   def setup(user)
     recipients   user.email
-    from         "Bumble <noreply@#{DOMAIN}>"
-    subject      "Bumble Message"
+    from         "#{DOMAIN} <noreply@#{DOMAIN}>"
+    subject      "#{DOMAIN} Message"
     sent_on      Time.now
     body         :user => user
   end

@@ -1,12 +1,11 @@
 class PostsController < ApplicationController
-  before_filter :require_user, :except => [:index, :show, :search]
+  before_filter :require_user, :except => [:index, :show, :search, :sitemap]
 
   make_resourceful do
     actions :all
 
-    response_for :index do |format|
-      format.html
-      format.atom
+    before :show do
+      fresh_when(:etag => [current_object, current_object.comments]) unless current_user
     end
 
     response_for :destroy do |format|
@@ -15,6 +14,22 @@ class PostsController < ApplicationController
         redirect_to posts_path
       end
       format.js { render :nothing => true }
+    end
+  end
+
+  def index
+    respond_to do |format|
+      format.html do
+        @posts = Post.paginate  :page => params[:page],
+                                :order => 'published_at DESC',
+                                :per_page => per_page
+        fresh_when(:etag => [@posts, Comment.last]) unless current_user
+      end
+      format.atom do
+        @posts = Post.find(:all,
+                           :order => 'published_at DESC',
+                           :limit => 50)
+      end
     end
   end
 
@@ -50,12 +65,22 @@ class PostsController < ApplicationController
   end
 
   def search
-    @posts = current_model.search(params[:query], :page => params[:page],
-                                                  :order => 'published_at DESC',
-                                                  :per_page => per_page)
+    @posts = current_model.search(params[:query]).paginate  :page => params[:page],
+                                                            :order => 'published_at DESC',
+                                                            :per_page => per_page
     respond_to do |format|
       format.html
       format.atom { render :action => :index}
+    end
+  end
+
+  def sitemap
+    expires_in 1.hour, :public => true
+    Sitemap::Routes.parse
+    respond_to do |format|
+      format.xml do
+        render :xml => Sitemap::Routes.results.to_xml
+      end
     end
   end
 
@@ -78,6 +103,10 @@ class PostsController < ApplicationController
 
   def per_page
     (iphone? ? 5 : 10)
+  end
+
+  def current_model_name
+    params.include?(Post.types.map(&:downcase)) || controller_name.singularize.camelize
   end
 
   def current_model
