@@ -11,5 +11,5 @@ gem 'paperclip'
 gem 'pg'
 gem 'aws-s3'
 group :production do
-  gem 'hassle', :git => 'git://github.com/jasoncodes/hassle.git'
+  gem 'hassle', :git => 'git://github.com/koppen/hassle.git'
 end
