@@ -2,7 +2,7 @@
   Editing
   = @post.class.to_s.downcase
 
-- form_for current_object, :url => post_path(@post), :html => {:method => :put} do |form|
+- form_for :post, :url => post_path(@post), :html => {:method => :put} do |form|
   = render :partial => "posts/forms/#{@post.class.to_s.downcase}", :locals => {:form => form}
   = render form
   = form.submit "Update"
