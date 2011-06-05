@@ -1,9 +1,38 @@
-class UsersController < ApplicationController
+class UsersController < BumbleController
   before_filter :require_user, :except => [:activate]
 
-  make_resourceful do
-    actions :all, :except => :create
-    member_actions :delete
+  def new
+    @user = User.new
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def index
+    @users = User.paginate(:page => params[:page])
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    respond_to do |format|
+      format.html do
+        flash[:notice] = "User Deleted"
+        redirect_to users_path
+      end
+    end
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update_attributes(params[:user])
+    if @user.save
+      flash[:notice] = 'User updated successfully'
+      redirect_to posts_path
+    else
+      render :action => 'edit'
+    end
   end
 
   def create
@@ -27,11 +56,5 @@ class UsersController < ApplicationController
     else
       render :action => :new
     end
-  end
-
-  private
-
-  def current_objects
-    @current_object ||= current_model.paginate :page => params[:page]
   end
 end

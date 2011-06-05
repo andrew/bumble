@@ -1,4 +1,4 @@
-class PasswordResetsController < ApplicationController
+class PasswordResetsController < BumbleController
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
 
   def create

@@ -1,5 +1,5 @@
-Bumble::Application.routes.draw do
-  match 'sitemap.xml' => 'posts#sitemap', :as => :sitemap
+Rails.application.routes.draw do
+  # match 'sitemap.xml' => 'posts#sitemap', :as => :sitemap
 
   resources :posts do
     collection do
@@ -16,7 +16,11 @@ Bumble::Application.routes.draw do
   end
 
   resources :password_resets
-  resources :users
+  resources :users do
+    member do
+      get :delete
+    end
+  end
   match '/login' => 'user_sessions#new', :as => :login, :via => 'get'
   match '/logout' => 'user_sessions#destroy', :as => :logout
   resource :user_session

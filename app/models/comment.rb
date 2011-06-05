@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-
+  include Gravtastic
   belongs_to :post # TODO , :counter_cache => true
   belongs_to :user
 

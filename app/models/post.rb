@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
 
   validates_presence_of :user, :published_at
 
-  before_validation_on_create :format_published_at
+  before_validation :format_published_at
 
   def asset
     assets.first
@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.types
-    Dir["#{RAILS_ROOT}/app/models/posts/*.rb"].each { |f| require_dependency f }
+    Dir[File.expand_path('../posts',__FILE__)+'/*.rb'].each { |f| require_dependency f }
     self.subclasses.collect(&:to_s).sort
   end
 
@@ -52,6 +52,6 @@ class Post < ActiveRecord::Base
   end
 
   def format_published_at
-    self.published_at = Time.now if self.published_at < Time.now
+    self.published_at = Time.now if self.published_at.nil?
   end
 end

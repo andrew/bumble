@@ -1,0 +1,35 @@
+!!!
+%html.no-js
+  %head
+    %meta{'http-equiv' => 'Content-Type', :content => "text/html; charset=utf-8"}
+    %meta{:name => 'author', :content => 'Bumble'}
+    %meta{:name => 'keywords', :content => 'keywords'}
+    %meta{:name => 'description', :content => page_description}
+    = auto_discovery_link_tag :atom, posts_url(:format => :atom), :title => 'Posts feed'
+    = auto_discovery_link_tag :atom, comments_url(:format => :atom), :title => 'Comments feed'
+    - if protect_against_forgery?
+      :javascript
+        var AUTH_TOKEN=#{form_authenticity_token.inspect};
+    = stylesheet_link_tag('bumble', :media => 'screen, print')
+    = javascript_include_tag 'jquery', 'jquery.validate', 'jquery.form', 'jquery.hint', 'jquery.autogrow', 'modernizr', 'bumble'
+    - if current_user
+      = javascript_include_tag 'jquery.cookie', 'jquery.ui.core', 'jquery.ui.widget', 'jquery.ui.tabs', 'admin'
+    - if iphone?
+      %meta{:name => "viewport", :content => "width=device-width; initial-scale=1.0; maximum-scale=1.0;"}
+      = stylesheet_link_tag 'iphone'
+      = javascript_include_tag 'iphone'
+    %title= page_title
+    = yield :header
+  %body
+    #header
+      %h1= link_to DOMAIN, root_path, :rel => :home
+    #content
+      - flash.each do |key, msg|
+        .flash{:id => key}= msg
+      = yield
+    = render 'layouts/sidebar'
+    #footer
+      = link_to '#header', :class => 'up', :title => 'Back to top' do
+        &#x2191;
+      Powered by
+      = link_to "Bumble", 'http://github.com/andrew/bumble'

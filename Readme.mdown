@@ -1,0 +1,3 @@
+# Bumble
+
+Blogging plugin provided as a rails engine

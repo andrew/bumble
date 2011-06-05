@@ -1,12 +1,16 @@
-class UserSessionsController < ApplicationController
-  make_resourceful do
-    actions :new, :create
-
-    response_for :create do |format|
-      format.html do
-        flash[:notice] = 'Logged in successfully'
-        redirect_back_or_default root_path
-      end
+class UserSessionsController < BumbleController
+  
+  def new
+    @user_session = UserSession.new
+  end
+  
+  def create
+    @user_session = UserSession.new
+    if @user_session.save
+      flash[:notice] = 'Logged in successfully'
+      redirect_back_or_default root_path
+    else
+      render :action => 'new'
     end
   end
 
