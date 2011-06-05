@@ -1,3 +1,8 @@
 # Bumble
 
 Blogging plugin provided as a rails engine
+
+## Requirements
+
+* A rails 3.0.x app
+* Postgres database
