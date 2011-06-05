@@ -6,3 +6,46 @@ Blogging plugin provided as a rails engine
 
 * A rails 3.0.x app
 * Postgres database
+
+## Install
+
+Add bumble to your `Gemfile`:
+
+    gem 'bumble'
+
+and update your bundle:
+
+    $ bundle install
+
+Then you can add the migrations and assets to your project with the following generators:
+
+    $ rails generate bumble:migrations
+    $ rails generate bumble:assets
+
+The last step is then to run those new migrations:
+
+    rake db:migrate
+
+## Customisation
+
+You can mount the blog in a particular route (the default is /posts) by putting the following in your `config/routes.rb` in your application:
+
+    match '/blog', :to => 'posts#index'
+
+To make the blog your homepage use:
+
+    root :to => 'posts#index'
+
+## Note on Patches/Pull Requests
+
+ * Fork the project.
+ * Make your feature addition or bug fix.
+ * Add tests for it. This is important so I don't break it in a
+   future version unintentionally.
+ * Commit, do not mess with rakefile, version, or history.
+   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+ * Send me a pull request. Bonus points for topic branches.
+
+## Copyright
+
+Copyright (c) 2011 Andrew Nesbitt. See LICENSE for details.
