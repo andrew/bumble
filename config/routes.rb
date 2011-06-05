@@ -25,5 +25,4 @@ Rails.application.routes.draw do
   match '/logout' => 'user_sessions#destroy', :as => :logout
   resource :user_session
   match '/activate/:activation_code' => 'users#activate', :as => :activate
-  root :to => 'posts#index'
 end
