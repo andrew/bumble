@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency(%q<rails>,         ["3.0.7"])
+  s.add_dependency(%q<rails>,         ["~> 3.0.9"])
   s.add_dependency(%q<will_paginate>, ["~>3.0.pre2"])
   s.add_dependency(%q<gravtastic>,    ["~>2.1.3"])
   s.add_dependency(%q<authlogic>,     ["~>2.1.1"])
