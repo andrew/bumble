@@ -21,7 +21,7 @@ class Comment < ActiveRecord::Base
   end
 
   def email_post_author
-    Notifier.deliver_new_comment_alert(self) unless user_id == post.user_id
+    Notifier.deliver_new_comment_alert(self) if (user_id != post.user_id) && approved
   end
 
   def anonymous?
